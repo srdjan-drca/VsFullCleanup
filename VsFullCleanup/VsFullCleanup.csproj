@@ -48,6 +48,7 @@
     <Compile Include="Core\Result\SuccessResult.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\FileSystemItemExtensions.cs" />
+    <Compile Include="Helpers\ConsoleUtils.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\LoggingLevel.cs" />
     <Compile Include="Logger\SimpleLogger.cs" />

@@ -238,7 +238,8 @@ namespace VsFullCleanup.Logger
 
       public void Info(string message)
       {
-         throw new NotImplementedException();
+         _streamWriter.WriteLine(message);
+         _streamWriter.Flush();
       }
 
       public void Info(string message, params object[] args)
