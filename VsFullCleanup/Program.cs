@@ -43,43 +43,23 @@ namespace VsFullCleanup
       private static void DeleteItems(FileSystemItemsProvider itemsProvider, ItemsToDelete itemsToDelete, ILogger logger)
       {
          //VisualStudio
-         ReturnResult result = itemsProvider.DeleteItems(itemsToDelete.ItemsInDependenciesDirectory);
-         if (!result.IsSuccess)
-         {
-            logger.Info(result.Message);
-         }
-         result = itemsProvider.DeleteItems(itemsToDelete.ItemsInPackageDirectory);
-         if (!result.IsSuccess)
-         {
-            logger.Info(result.Message);
-         }
-         result = itemsProvider.DeleteItems(itemsToDelete.ItemsInObjDirectory);
-         if (!result.IsSuccess)
-         {
-            logger.Info(result.Message);
-         }
-         result = itemsProvider.DeleteItems(itemsToDelete.ItemsInBinDirectory);
-         if (!result.IsSuccess)
-         {
-            logger.Info(result.Message);
-         }
-         result = itemsProvider.DeleteItems(itemsToDelete.ItemsInVsDirectory);
-         if (!result.IsSuccess)
-         {
-            logger.Info(result.Message);
-         }
+         LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInDependenciesDirectory), logger);
+         LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInPackageDirectory), logger);
+         LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInObjDirectory), logger);
+         LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInBinDirectory), logger);
+         LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInVsDirectory), logger);
          if (!string.IsNullOrEmpty(itemsToDelete.VsUserFile?.Path))
          {
             File.Delete(itemsToDelete.VsUserFile?.Path);
          }
 
          //CI
-         result = itemsProvider.DeleteItems(itemsToDelete.ItemsInArtifactsDirectory);
-         if (!result.IsSuccess)
-         {
-            logger.Info(result.Message);
-         }
-         result = itemsProvider.DeleteItems(itemsToDelete.ItemsInDeploymentDirectory);
+         LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInArtifactsDirectory), logger);
+         LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInDeploymentDirectory), logger);
+      }
+
+      private static void LogResult(ReturnResult result, ILogger logger)
+      {
          if (!result.IsSuccess)
          {
             logger.Info(result.Message);
