@@ -49,6 +49,8 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\FileSystemItemExtensions.cs" />
     <Compile Include="Helpers\ConsoleUtils.cs" />
+    <Compile Include="InputParser\InputParameters.cs" />
+    <Compile Include="ItemsToDelete.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\LoggingLevel.cs" />
     <Compile Include="Logger\SimpleLogger.cs" />

@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 using VsFullCleanup.Core.Models;
 
 namespace VsFullCleanup.Extensions
@@ -34,6 +35,19 @@ namespace VsFullCleanup.Extensions
          }).ToList();
 
          return allItemsFlat;
+      }
+
+      public static List<FileSystemItem> AddBackslashOnDirectoryPaths(this List<FileSystemItem> allItems)
+      {
+         foreach (FileSystemItem fileSystemItem in allItems)
+         {
+            if (!Path.HasExtension(fileSystemItem.Path))
+            {
+               fileSystemItem.Path += @"\";
+            }
+         }
+
+         return allItems.ToList();
       }
    }
 }
