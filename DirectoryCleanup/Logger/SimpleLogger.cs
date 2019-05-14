@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace VsFullCleanup.Logger
+namespace DirectoryCleanup.Logger
 {
    public class SimpleLogger : ILogger, IDisposable
    {

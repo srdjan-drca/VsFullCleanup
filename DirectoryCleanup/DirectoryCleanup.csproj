@@ -7,11 +7,12 @@
     <ProjectGuid>{E431A4E5-ACF0-465E-8FF5-A79E9DBCB1C3}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VsFullCleanup</RootNamespace>
-    <AssemblyName>VsFullCleanup</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>DirectoryCleanup</RootNamespace>
+    <AssemblyName>DirectoryCleanup</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -36,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\FileSystemItemsProvider.cs" />
@@ -50,7 +53,7 @@
     <Compile Include="Extensions\FileSystemItemExtensions.cs" />
     <Compile Include="Helpers\ConsoleUtils.cs" />
     <Compile Include="InputParser\InputParameters.cs" />
-    <Compile Include="ItemsToDelete.cs" />
+    <Compile Include="InputParser\ItemsToDelete.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\LoggingLevel.cs" />
     <Compile Include="Logger\SimpleLogger.cs" />

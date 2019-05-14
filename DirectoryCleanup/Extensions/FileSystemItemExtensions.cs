@@ -1,9 +1,9 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Collections.Generic;
-using VsFullCleanup.Core.Models;
+using DirectoryCleanup.Core.Models;
 
-namespace VsFullCleanup.Extensions
+namespace DirectoryCleanup.Extensions
 {
    public static class FileSystemItemExtensions
    {

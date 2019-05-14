@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VsFullCleanup", "VsFullCleanup\VsFullCleanup.csproj", "{E431A4E5-ACF0-465E-8FF5-A79E9DBCB1C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectoryCleanup", "DirectoryCleanup\DirectoryCleanup.csproj", "{E431A4E5-ACF0-465E-8FF5-A79E9DBCB1C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

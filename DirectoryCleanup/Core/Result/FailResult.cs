@@ -1,4 +1,4 @@
-﻿namespace VsFullCleanup.Core.Result
+﻿namespace DirectoryCleanup.Core.Result
 {
    public class FailResult : ReturnResult
    {

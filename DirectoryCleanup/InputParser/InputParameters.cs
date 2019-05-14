@@ -2,15 +2,15 @@
 using System.Linq;
 using System.Reflection;
 
-namespace VsFullCleanup.InputParser
+namespace DirectoryCleanup.InputParser
 {
    public class InputParameters
    {
-      public string RootPath { get; set; }
-
       public bool IsFullDelete { get; set; }
 
-      public bool IsZipping { get; set; }
+      public string RootPath { get; set; }
+
+      public string ArchivePath { get; set; }
 
       public InputParameters(string[] args)
       {
@@ -23,22 +23,27 @@ namespace VsFullCleanup.InputParser
 
          foreach (string arg in args)
          {
-            if (arg == "-path")
+            if (arg == "-fullDelete")
             {
-               string filePath = args.SkipWhile(x => x.StartsWith("-")).FirstOrDefault();
+               IsFullDelete = true;
+            }
+            else if (arg == "-path")
+            {
+               string filePath = args.SkipWhile(x => x.StartsWith("-path")).FirstOrDefault();
 
-               if (filePath != null)
+               if (filePath != null && !filePath.StartsWith("-"))
                {
                   RootPath = new DirectoryInfo(filePath).FullName;
                }
             }
-            else if (arg == "-fullDelete")
-            {
-               IsFullDelete = true;
-            }
             else if (arg == "-zip")
             {
-               IsZipping = true;
+               string archivePath = args.SkipWhile(x => x.StartsWith("-zip")).FirstOrDefault();
+
+               if (archivePath != null && !archivePath.StartsWith("-"))
+               {
+                  ArchivePath = new FileInfo(archivePath).FullName;
+               }
             }
          }
       }

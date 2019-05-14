@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace VsFullCleanup.Logger
+namespace DirectoryCleanup.Logger
 {
    /// <summary>
    /// Provides logging interface and utility functions.

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using VsFullCleanup.Core.Models;
-using VsFullCleanup.Core.Result;
+using DirectoryCleanup.Core.Models;
+using DirectoryCleanup.Core.Result;
 
-namespace VsFullCleanup.Core
+namespace DirectoryCleanup.Core
 {
    public interface IFileSystemItemsProvider
    {

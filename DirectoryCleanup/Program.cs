@@ -1,21 +1,22 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
 using System.Collections.Generic;
-using VsFullCleanup.Core;
-using VsFullCleanup.Core.Models;
-using VsFullCleanup.Core.Result;
-using VsFullCleanup.Extensions;
-using VsFullCleanup.Helpers;
-using VsFullCleanup.InputParser;
-using VsFullCleanup.Logger;
+using DirectoryCleanup.Core;
+using DirectoryCleanup.Core.Models;
+using DirectoryCleanup.Core.Result;
+using DirectoryCleanup.Extensions;
+using DirectoryCleanup.Helpers;
+using DirectoryCleanup.InputParser;
+using DirectoryCleanup.Logger;
 
-namespace VsFullCleanup
+namespace DirectoryCleanup
 {
    class Program
    {
       static void Main(string[] args)
       {
-         var logger = new SimpleLogger(@"BinObjLog.txt");
+         var logger = new SimpleLogger(@"DirectoryCleanupLog.txt");
          var itemsProvider = new FileSystemItemsProvider(logger);
          var inputParameters = new InputParameters(args);
 
@@ -29,10 +30,16 @@ namespace VsFullCleanup
             if (isDeleting)
             {
                DeleteItems(itemsProvider, itemsToDelete, logger);
-
-               Console.WriteLine("Process is finished!");
-               Console.ReadKey();
+               Console.WriteLine("Cleanup is finished!");
             }
+
+            if (!string.IsNullOrEmpty(inputParameters.ArchivePath))
+            {
+               Console.WriteLine($"Zipping content from {inputParameters.RootPath} to {inputParameters.ArchivePath}!");
+               ZipFile.CreateFromDirectory(inputParameters.RootPath, inputParameters.ArchivePath);
+            }
+
+            Console.ReadKey();
          }
          catch (Exception exception)
          {
