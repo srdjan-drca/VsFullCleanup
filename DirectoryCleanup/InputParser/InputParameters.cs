@@ -21,6 +21,11 @@ namespace DirectoryCleanup.InputParser
       {
          RootPath = GetCurrentDirectory();
 
+         if (args.Length == 0)
+         {
+            return;
+         }
+
          foreach (string arg in args)
          {
             if (arg == "-fullDelete")
