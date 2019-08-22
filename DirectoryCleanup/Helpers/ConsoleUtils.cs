@@ -10,15 +10,15 @@ namespace DirectoryCleanup.Helpers
       public static bool AskQuestion(string directory, ItemsToDelete itemsToDelete)
       {
          //VisualStudio
-         string dependenciesDirectoryPath = itemsToDelete.ItemsInDependenciesDirectory.FirstOrDefault(x => x.Path.EndsWith(@"\dependencies\"))?.Path;
-         string packagesDirectoryPath = itemsToDelete.ItemsInPackageDirectory.FirstOrDefault(x => x.Path.EndsWith(@"\packages\"))?.Path;
+         string dependenciesDirectoryPath = itemsToDelete.ItemsInDependenciesDirectory?.FirstOrDefault(x => x.Path.EndsWith(@"\dependencies\"))?.Path;
+         string packagesDirectoryPath = itemsToDelete.ItemsInPackageDirectory?.FirstOrDefault(x => x.Path.EndsWith(@"\packages\"))?.Path;
          List<string> rootObjDirectoryPaths = itemsToDelete.ItemsInObjDirectory.Where(x => x.Path.EndsWith(@"\obj\")).Select(x => x.Path).ToList();
          List<string> rootBinDirectoryPaths = itemsToDelete.ItemsInBinDirectory.Where(x => x.Path.EndsWith(@"\bin\")).Select(x => x.Path).ToList();
          List<string> rootVsDirectoryPaths = itemsToDelete.ItemsInVsDirectory.Where(x => x.Path.EndsWith(@".vs\")).Select(x => x.Path).ToList();
          string visualStudioUserFile = itemsToDelete.VsUserFile?.Path;
          //CI
-         string artifactsDirectoryPath = itemsToDelete.ItemsInArtifactsDirectory.FirstOrDefault(x => x.Path.EndsWith(@"\artifacts\"))?.Path;
-         string deploymentDirectoryPath = itemsToDelete.ItemsInDeploymentDirectory.FirstOrDefault(x => x.Path.EndsWith(@"\deployment\"))?.Path;
+         string artifactsDirectoryPath = itemsToDelete.ItemsInArtifactsDirectory?.FirstOrDefault(x => x.Path.EndsWith(@"\artifacts\"))?.Path;
+         string deploymentDirectoryPath = itemsToDelete.ItemsInDeploymentDirectory?.FirstOrDefault(x => x.Path.EndsWith(@"\deployment\"))?.Path;
 
          Console.WriteLine("Doing clean-up of visual studio projects from directory:");
          Console.WriteLine($"{directory}\n");
