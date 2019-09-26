@@ -18,7 +18,15 @@ namespace DirectoryCleanup
       {
          var logger = new SimpleLogger(@"DirectoryCleanupLog.txt");
          var itemsProvider = new FileSystemItemsProvider(logger);
-         var inputParameters = new InputParameters(args);
+         var inputParameters = new InputParameters();
+
+         ReturnResult result = inputParameters.ParseArguments(args);
+
+         if (!result.IsSuccess)
+         {
+            Console.WriteLine(result.Message);
+            return;
+         }
 
          try
          {

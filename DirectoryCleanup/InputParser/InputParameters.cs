@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Reflection;
+using DirectoryCleanup.Core.Result;
 
 namespace DirectoryCleanup.InputParser
 {
@@ -12,18 +13,13 @@ namespace DirectoryCleanup.InputParser
 
       public string ArchivePath { get; set; }
 
-      public InputParameters(string[] args)
-      {
-         ParseArguments(args);
-      }
-
-      private void ParseArguments(string[] args)
+      public ReturnResult ParseArguments(string[] args)
       {
          RootPath = GetCurrentDirectory();
 
          if (args.Length == 0)
          {
-            return;
+            return new SuccessResult();
          }
 
          foreach (string arg in args)
@@ -50,7 +46,24 @@ namespace DirectoryCleanup.InputParser
                   ArchivePath = new FileInfo(archivePath).FullName;
                }
             }
+            else
+            {
+               string message = GetToolHelpMessage();
+
+               return new FailResult(message);
+            }
          }
+
+         return new SuccessResult();
+      }
+
+      private string GetToolHelpMessage()
+      {
+         return "Unknown parameter.\n" +
+                "DirectoryCleanup -path <path_to_files> -fullDelete -zip\n" +
+                " - path: this parameter can be ommited. In that case current directory is taken as path.\n" +
+                " -fullDelete: when this option is included, tool delete folders: package, dependency and artifacts\n" +
+                " -zip: when this option is included tool create zip file out of folder/files on targeted path.\n";
       }
 
       private string GetCurrentDirectory()
