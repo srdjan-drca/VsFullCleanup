@@ -1,0 +1,28 @@
+name: VsFullCleanup
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  # Build job
+  build:
+    runs-on: [windows-latest]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+      
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+    
+    - name: Restore NuGet packages
+      run: nuget restore DirectoryCleanup.sln
+      
+    - name: Build Solution
+      run: msbuild DirectoryCleanup.sln
