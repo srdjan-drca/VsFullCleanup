@@ -1,4 +1,4 @@
-name: VsFullCleanup CI
+name: VsFullCleanupCI
 
 on:
   push:

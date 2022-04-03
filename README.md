@@ -137,7 +137,7 @@ Project Link: [https://github.com/srdjan-drca/VsFullCleanup](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[ci-shield]: https://github.com/srdjan-drca/VsFullCleanup/actions/workflows/main.yml/badge.svg
+[ci-shield]: https://img.shields.io/github/workflow/status/srdjan-drca/VsFullCleanup/VsFullCleanupCI?style=for-the-badge
 [ci-url]: https://github.com/srdjan-drca/VsFullCleanup/actions/workflows/main.yml
 [contributors-shield]: https://img.shields.io/github/contributors/srdjan-drca/VsFullCleanup.svg?style=for-the-badge
 [contributors-url]: https://github.com/srdjan-drca/VsFullCleanup/graphs/contributors
