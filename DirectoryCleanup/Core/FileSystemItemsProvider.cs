@@ -1,84 +1,84 @@
-﻿using System;
+﻿using DirectoryCleanup.Core.Models;
+using DirectoryCleanup.Core.Result;
+using DirectoryCleanup.Logger;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DirectoryCleanup.Core.Models;
-using DirectoryCleanup.Core.Result;
-using DirectoryCleanup.Logger;
 
 namespace DirectoryCleanup.Core
 {
-   public class FileSystemItemsProvider : IFileSystemItemsProvider
-   {
-      private readonly ILogger _logger;
+    public class FileSystemItemsProvider : IFileSystemItemsProvider
+    {
+        private readonly ILogger _logger;
 
-      public FileSystemItemsProvider(ILogger logger)
-      {
-         _logger = logger;
-      }
+        public FileSystemItemsProvider(ILogger logger)
+        {
+            _logger = logger;
+        }
 
-      public List<FileSystemItem> GetItems(string path, DirectoryItem parent = null)
-      {
-         var fileSystemItems = new List<FileSystemItem>();
-         var directoryInfo = new DirectoryInfo(path);
+        public List<FileSystemItem> GetItems(string path, DirectoryItem parent = null)
+        {
+            var fileSystemItems = new List<FileSystemItem>();
+            var directoryInfo = new DirectoryInfo(path);
 
-         foreach (var directory in directoryInfo.GetDirectories())
-         {
-            var directoryItem = new DirectoryItem(directory.Name, directory.FullName);
-            directoryItem.Parent = parent;
-            directoryItem.FileSystemItems = GetItems(directory.FullName, directoryItem);
-
-            fileSystemItems.Add(directoryItem);
-         }
-
-         foreach (FileInfo file in directoryInfo.GetFiles())
-         {
-            string lowercaseExtension = file.Extension.ToLower();
-            string fileName = Path.ChangeExtension(file.Name, null) + lowercaseExtension;
-            string fileFullName = Path.ChangeExtension(file.FullName, null) + lowercaseExtension;
-
-            var fileItem = new FileItem(fileName, fileFullName);
-
-            fileItem.Parent = parent;
-
-            fileSystemItems.Add(fileItem);
-         }
-
-         return fileSystemItems;
-      }
-
-      public ReturnResult DeleteItems(List<FileSystemItem> itemsToDelete)
-      {
-         int numberOfDeletedFiles = 0;
-         int numberOfDeletedDirectories = 0;
-         bool isSuccess = true;
-
-         try
-         {
-            List<FileItem> filesToDelete = itemsToDelete.OfType<FileItem>().ToList();
-            foreach (FileItem fileItem in filesToDelete)
+            foreach (var directory in directoryInfo.GetDirectories())
             {
-               File.Delete(fileItem.Path);
-               numberOfDeletedFiles++;
+                var directoryItem = new DirectoryItem(directory.Name, directory.FullName);
+                directoryItem.Parent = parent;
+                directoryItem.FileSystemItems = GetItems(directory.FullName, directoryItem);
+
+                fileSystemItems.Add(directoryItem);
             }
 
-            List<DirectoryItem> directoriesToDelete = itemsToDelete.OfType<DirectoryItem>().OrderByDescending(x => x.Path.Length).ToList();
-            foreach (DirectoryItem directoryItem in directoriesToDelete)
+            foreach (FileInfo file in directoryInfo.GetFiles())
             {
-               Directory.Delete(directoryItem.Path);
-               numberOfDeletedDirectories++;
+                string lowercaseExtension = file.Extension.ToLower();
+                string fileName = Path.ChangeExtension(file.Name, null) + lowercaseExtension;
+                string fileFullName = Path.ChangeExtension(file.FullName, null) + lowercaseExtension;
+
+                var fileItem = new FileItem(fileName, fileFullName);
+
+                fileItem.Parent = parent;
+
+                fileSystemItems.Add(fileItem);
             }
-         }
-         catch (Exception exception)
-         {
-            _logger.Info($@"DeleteItems error: {exception.Message}");
 
-            isSuccess = false;
-         }
+            return fileSystemItems;
+        }
 
-         string message = $"Files / directories deleted: {numberOfDeletedFiles} / {numberOfDeletedDirectories}.";
+        public ReturnResult DeleteItems(List<FileSystemItem> itemsToDelete)
+        {
+            int numberOfDeletedFiles = 0;
+            int numberOfDeletedDirectories = 0;
+            bool isSuccess = true;
 
-         return new ReturnResult(isSuccess, message);
-      }
-   }
+            try
+            {
+                List<FileItem> filesToDelete = itemsToDelete.OfType<FileItem>().ToList();
+                foreach (FileItem fileItem in filesToDelete)
+                {
+                    File.Delete(fileItem.Path);
+                    numberOfDeletedFiles++;
+                }
+
+                List<DirectoryItem> directoriesToDelete = itemsToDelete.OfType<DirectoryItem>().OrderByDescending(x => x.Path.Length).ToList();
+                foreach (DirectoryItem directoryItem in directoriesToDelete)
+                {
+                    Directory.Delete(directoryItem.Path);
+                    numberOfDeletedDirectories++;
+                }
+            }
+            catch (Exception exception)
+            {
+                _logger.Info($@"DeleteItems error: {exception.Message}");
+
+                isSuccess = false;
+            }
+
+            string message = $"Files / directories deleted: {numberOfDeletedFiles} / {numberOfDeletedDirectories}.";
+
+            return new ReturnResult(isSuccess, message);
+        }
+    }
 }

@@ -1,15 +1,15 @@
 ﻿namespace DirectoryCleanup.Core.Result
 {
-   public class ReturnResult
-   {
-      public bool IsSuccess { get; set; }
+    public class ReturnResult
+    {
+        public bool IsSuccess { get; set; }
 
-      public string Message { get; set; }
+        public string Message { get; set; }
 
-      public ReturnResult(bool isSuccess, string message)
-      {
-         IsSuccess = isSuccess;
-         Message = message;
-      }
-   }
+        public ReturnResult(bool isSuccess, string message)
+        {
+            IsSuccess = isSuccess;
+            Message = message;
+        }
+    }
 }

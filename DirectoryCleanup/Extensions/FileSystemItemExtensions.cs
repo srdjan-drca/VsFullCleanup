@@ -1,53 +1,53 @@
-﻿using System.Collections.Generic;
+﻿using DirectoryCleanup.Core.Models;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DirectoryCleanup.Core.Models;
 
 namespace DirectoryCleanup.Extensions
 {
-   public static class FileSystemItemExtensions
-   {
-      public static List<FileSystemItem> MakeFlat(this List<FileSystemItem> allItems)
-      {
-         List<FileSystemItem> allItemsFlat = allItems.SelectManyRecursive(x =>
-         {
-            var directoryItem = x as DirectoryItem;
-            if (directoryItem != null)
+    public static class FileSystemItemExtensions
+    {
+        public static List<FileSystemItem> MakeFlat(this List<FileSystemItem> allItems)
+        {
+            List<FileSystemItem> allItemsFlat = allItems.SelectManyRecursive(x =>
             {
-               return ((DirectoryItem)x).FileSystemItems;
-            }
-            return x as IEnumerable<FileSystemItem>;
-         }).ToList();
+                var directoryItem = x as DirectoryItem;
+                if (directoryItem != null)
+                {
+                    return ((DirectoryItem)x).FileSystemItems;
+                }
+                return x as IEnumerable<FileSystemItem>;
+            }).ToList();
 
-         return allItemsFlat;
-      }
+            return allItemsFlat;
+        }
 
-      public static List<FileSystemItem> MakeFlat(this IEnumerable<FileSystemItem> allItems)
-      {
-         List<FileSystemItem> allItemsFlat = allItems.SelectManyRecursive(x =>
-         {
-            var directoryItem = x as DirectoryItem;
-            if (directoryItem != null)
+        public static List<FileSystemItem> MakeFlat(this IEnumerable<FileSystemItem> allItems)
+        {
+            List<FileSystemItem> allItemsFlat = allItems.SelectManyRecursive(x =>
             {
-               return ((DirectoryItem)x).FileSystemItems;
-            }
-            return x as IEnumerable<FileSystemItem>;
-         }).ToList();
+                var directoryItem = x as DirectoryItem;
+                if (directoryItem != null)
+                {
+                    return ((DirectoryItem)x).FileSystemItems;
+                }
+                return x as IEnumerable<FileSystemItem>;
+            }).ToList();
 
-         return allItemsFlat;
-      }
+            return allItemsFlat;
+        }
 
-      public static List<FileSystemItem> AddBackslashOnDirectoryPaths(this List<FileSystemItem> allItems)
-      {
-         foreach (FileSystemItem fileSystemItem in allItems)
-         {
-            if (!Path.HasExtension(fileSystemItem.Path))
+        public static List<FileSystemItem> AddBackslashOnDirectoryPaths(this List<FileSystemItem> allItems)
+        {
+            foreach (FileSystemItem fileSystemItem in allItems)
             {
-               fileSystemItem.Path += @"\";
+                if (!Path.HasExtension(fileSystemItem.Path))
+                {
+                    fileSystemItem.Path += @"\";
+                }
             }
-         }
 
-         return allItems.ToList();
-      }
-   }
+            return allItems.ToList();
+        }
+    }
 }
