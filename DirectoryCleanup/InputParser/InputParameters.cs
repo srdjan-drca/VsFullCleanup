@@ -1,57 +1,63 @@
 ﻿using DirectoryCleanup.Core.Result;
+using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 
 namespace DirectoryCleanup.InputParser
 {
     public class InputParameters
     {
-        public bool IsFullDelete { get; set; }
-
         public string RootPath { get; set; }
+        public bool IsDeletingPackages { get; set; }
 
-        public ReturnResult ParseArguments(string[] args)
+        public ReturnResult ParseArguments(string[] parameterList)
         {
-            RootPath = GetCurrentDirectory();
+            int helpOptIndex = Array.IndexOf(parameterList, "-help");
+            int pathOptIndex = Array.IndexOf(parameterList, "-path");
+            int packagesOptIndex = Array.IndexOf(parameterList, "-packages");
 
-            if (args.Length == 0)
+            if (helpOptIndex > 0)
             {
-                return new SuccessResult();
+                return new FailResult(CreateHelpMessage(string.Empty));
             }
 
-            foreach (string arg in args)
+            RootPath = GetRootPath(pathOptIndex, parameterList);
+            IsDeletingPackages = packagesOptIndex > 0;
+
+            if(string.IsNullOrEmpty(RootPath))
             {
-                if (arg == "-fullDelete")
-                {
-                    IsFullDelete = true;
-                }
-                else if (arg == "-path")
-                {
-                    string filePath = args.SkipWhile(x => x.StartsWith("-path")).FirstOrDefault();
-
-                    if (filePath != null && !filePath.StartsWith("-"))
-                    {
-                        RootPath = new DirectoryInfo(filePath).FullName;
-                    }
-                }
-                else
-                {
-                    string message = GetToolHelpMessage();
-
-                    return new FailResult(message);
-                }
+                return new FailResult(CreateHelpMessage("Missing path value"));
             }
 
             return new SuccessResult();
         }
 
-        private string GetToolHelpMessage()
+        private string CreateHelpMessage(string reason)
         {
-            return "Unknown parameter.\n" +
-                   "DirectoryCleanup -path <path_to_files> -fullDelete\n" +
-                   " -path: this parameter can be ommited. In that case current directory is taken as path.\n" +
-                   " -fullDelete: when this option is included, tool delete folders: package, dependency and artifacts\n";
+            return $"{reason}.{Environment.NewLine}" +
+                $"DirectoryCleanup -path <path_to_files> -packages -help{Environment.NewLine}" +
+                $" -path: Root path of VS project. If not specified current directory is taken.{Environment.NewLine}" +
+                $" -packages: Tool deletes packages directory for specified path.{Environment.NewLine}" +
+                $" -help: This message.{Environment.NewLine}";
+        }
+
+        private string GetRootPath(int pathOptIndex, string[] parameterList)
+        {
+            if (pathOptIndex > 0)
+            {
+                if (pathOptIndex + 1 <= parameterList.Length)
+                {
+                    return new DirectoryInfo(parameterList[pathOptIndex + 1]).FullName;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            else
+            {
+                return GetCurrentDirectory();
+            }
         }
 
         private string GetCurrentDirectory()

@@ -8,10 +8,11 @@ using DirectoryCleanup.Logger;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace DirectoryCleanup
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main(string[] args)
         {
@@ -50,15 +51,14 @@ namespace DirectoryCleanup
 
         private static void DeleteItems(FileSystemItemsProvider itemsProvider, ItemsToDelete itemsToDelete, ILogger logger)
         {
-            LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInPackageDirectory), logger);
-            LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInObjDirectory), logger);
             LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInBinDirectory), logger);
+            LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInObjDirectory), logger);
             LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInVsDirectory), logger);
-
             if (!string.IsNullOrEmpty(itemsToDelete.VsUserFile?.Path))
             {
                 File.Delete(itemsToDelete.VsUserFile?.Path);
             }
+            LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInPackageDirectory), logger);
         }
 
         private static void LogResult(ReturnResult result, ILogger logger)
