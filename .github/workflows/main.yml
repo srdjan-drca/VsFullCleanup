@@ -25,4 +25,4 @@ jobs:
       run: nuget restore DirectoryCleanup.sln
       
     - name: Build Solution
-      run: msbuild DirectoryCleanup.sln
+      run: msbuild DirectoryCleanup.sln /p:Configuration=Release
