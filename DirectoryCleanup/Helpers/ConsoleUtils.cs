@@ -9,11 +9,11 @@ namespace DirectoryCleanup.Helpers
     {
         public static bool AskQuestion(string directory, ItemsToDelete itemsToDelete)
         {
-            List<string> rootBinDirectoryPaths = itemsToDelete.ItemsInBinDirectory?.Where(x => x.Path.EndsWith(@"\bin\")).Select(x => x.Path).ToList();
-            List<string> rootObjDirectoryPaths = itemsToDelete.ItemsInObjDirectory?.Where(x => x.Path.EndsWith(@"\obj\")).Select(x => x.Path).ToList();
-            List<string> rootVsDirectoryPaths = itemsToDelete.ItemsInVsDirectory?.Where(x => x.Path.EndsWith(@"\.vs")).Select(x => x.Path).ToList();
-            string visualStudioUserFile = itemsToDelete.VsUserFile?.Path;
-            string packagesDirectoryPath = itemsToDelete.ItemsInPackageDirectory?.FirstOrDefault(x => x.Path.EndsWith(@"\packages\"))?.Path;
+            List<string> rootBinDirectoryPaths = itemsToDelete.BinDirectoryItemList?.Where(x => x.Path.EndsWith(@"\bin\")).Select(x => x.Path).ToList();
+            List<string> rootObjDirectoryPaths = itemsToDelete.ObjDirectoryItemList?.Where(x => x.Path.EndsWith(@"\obj\")).Select(x => x.Path).ToList();
+            List<string> rootVsDirectoryPaths = itemsToDelete.VsDirectoryItemList?.Where(x => x.Path.EndsWith(@"\.vs")).Select(x => x.Path).ToList();
+            List<string> vsUserFilePaths = itemsToDelete.VsUserFileList?.Where(x => x.Path.EndsWith(@"\.vs")).Select(x => x.Path).ToList();
+            List<string> packagesDirectoryPaths = itemsToDelete.PackageDirectoryItemList?.Where(x => x.Path.EndsWith(@"\packages\")).Select(x => x.Path).ToList();
 
             Console.WriteLine("Doing clean-up of visual studio projects from directory:");
             Console.WriteLine($"{directory}\n");
@@ -21,8 +21,8 @@ namespace DirectoryCleanup.Helpers
             DisplayDirectoriesForDelete("Removing bin directories:", directory, rootBinDirectoryPaths);
             DisplayDirectoriesForDelete("Removing obj directories:", directory, rootObjDirectoryPaths);
             DisplayDirectoriesForDelete("Removing VS directories:", directory, rootVsDirectoryPaths);
-            DisplayDirectoryForDelete("Removing visual studio user file:", directory, visualStudioUserFile);
-            DisplayDirectoryForDelete("Removing packages directory:", directory, packagesDirectoryPath);
+            DisplayDirectoriesForDelete("Removing visual studio user files:", directory, vsUserFilePaths);
+            DisplayDirectoriesForDelete("Removing packages directory:", directory, packagesDirectoryPaths);
 
             bool isDeleting = Confirm("Are you sure?");
 
@@ -42,18 +42,6 @@ namespace DirectoryCleanup.Helpers
                     Console.WriteLine($"   + {subPath}");
                 }
 
-                Console.WriteLine();
-            }
-        }
-
-        private static void DisplayDirectoryForDelete(string title, string rootPath, string rootDirectoryPath)
-        {
-            if (!string.IsNullOrEmpty(rootDirectoryPath))
-            {
-                string subPath = rootDirectoryPath.Replace(rootPath, "");
-
-                Console.WriteLine(title);
-                Console.WriteLine($"   + {subPath}");
                 Console.WriteLine();
             }
         }

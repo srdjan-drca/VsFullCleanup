@@ -6,19 +6,19 @@ namespace DirectoryCleanup.InputParser
 {
     public class ItemsToDelete
     {
-        public List<FileSystemItem> ItemsInBinDirectory { get; set; }
-        public List<FileSystemItem> ItemsInObjDirectory { get; set; }
-        public List<FileSystemItem> ItemsInVsDirectory { get; set; }
-        public FileSystemItem VsUserFile { get; set; }
-        public List<FileSystemItem> ItemsInPackageDirectory { get; set; }
+        public List<FileSystemItem> BinDirectoryItemList { get; set; }
+        public List<FileSystemItem> ObjDirectoryItemList { get; set; }
+        public List<FileSystemItem> VsDirectoryItemList { get; set; }
+        public List<FileSystemItem> VsUserFileList { get; set; }
+        public List<FileSystemItem> PackageDirectoryItemList { get; set; }
 
         public ItemsToDelete(List<FileSystemItem> fileSystemItems, InputParameters inputParameters)
         {
-            ItemsInBinDirectory = fileSystemItems.Where(x => x.Path.Contains(@"\bin\")).ToList();
-            ItemsInObjDirectory = fileSystemItems.Where(x => x.Path.Contains(@"\obj\")).ToList();
-            ItemsInVsDirectory = fileSystemItems.Where(x => x.Path.Contains(@"\.vs")).ToList();
-            VsUserFile = fileSystemItems.FirstOrDefault(x => x.Path.Contains(@".user"));
-            ItemsInPackageDirectory = inputParameters.IsDeletingPackages
+            BinDirectoryItemList = fileSystemItems.Where(x => x.Path.Contains(@"\bin\") && !x.Path.Contains(@"node_modules")).ToList();
+            ObjDirectoryItemList = fileSystemItems.Where(x => x.Path.Contains(@"\obj\")).ToList();
+            VsDirectoryItemList = fileSystemItems.Where(x => x.Path.Contains(@"\.vs")).ToList();
+            VsUserFileList = fileSystemItems.Where(x => x.Path.Contains(@".user")).ToList();
+            PackageDirectoryItemList = inputParameters.IsDeletingPackages
                 ? fileSystemItems.Where(x => x.Path.Contains(@"\packages\")).ToList()
                 : new List<FileSystemItem>();
         }

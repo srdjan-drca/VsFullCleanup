@@ -7,8 +7,6 @@ using DirectoryCleanup.InputParser;
 using DirectoryCleanup.Logger;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace DirectoryCleanup
 {
@@ -51,17 +49,14 @@ namespace DirectoryCleanup
 
         private static void DeleteItems(FileSystemItemsProvider itemsProvider, ItemsToDelete itemsToDelete, ILogger logger)
         {
-            LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInBinDirectory), logger);
-            LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInObjDirectory), logger);
-            LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInVsDirectory), logger);
-            if (!string.IsNullOrEmpty(itemsToDelete.VsUserFile?.Path))
-            {
-                File.Delete(itemsToDelete.VsUserFile?.Path);
-            }
-            LogResult(itemsProvider.DeleteItems(itemsToDelete.ItemsInPackageDirectory), logger);
+            LogError(itemsProvider.DeleteItems(itemsToDelete.BinDirectoryItemList), logger);
+            LogError(itemsProvider.DeleteItems(itemsToDelete.ObjDirectoryItemList), logger);
+            LogError(itemsProvider.DeleteItems(itemsToDelete.VsDirectoryItemList), logger);
+            LogError(itemsProvider.DeleteItems(itemsToDelete.VsUserFileList), logger);
+            LogError(itemsProvider.DeleteItems(itemsToDelete.PackageDirectoryItemList), logger);
         }
 
-        private static void LogResult(ReturnResult result, ILogger logger)
+        private static void LogError(ReturnResult result, ILogger logger)
         {
             if (!result.IsSuccess)
             {
