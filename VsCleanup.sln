@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectoryCleanup", "DirectoryCleanup\DirectoryCleanup.csproj", "{E431A4E5-ACF0-465E-8FF5-A79E9DBCB1C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VsCleanup", "VsCleanup\VsCleanup.csproj", "{E431A4E5-ACF0-465E-8FF5-A79E9DBCB1C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8FB7451-378F-407E-8DD4-B567AFAE53F4}
 	EndGlobalSection
 EndGlobal

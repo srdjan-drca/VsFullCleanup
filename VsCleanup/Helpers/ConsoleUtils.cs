@@ -1,9 +1,9 @@
-﻿using DirectoryCleanup.InputParser;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using VsCleanup.InputParser;
 
-namespace DirectoryCleanup.Helpers
+namespace VsCleanup.Helpers
 {
     public static class ConsoleUtils
     {

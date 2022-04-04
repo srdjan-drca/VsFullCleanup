@@ -1,4 +1,4 @@
-﻿namespace DirectoryCleanup.Logger
+﻿namespace VsCleanup.Logger
 {
     public enum LoggingLevel
     {

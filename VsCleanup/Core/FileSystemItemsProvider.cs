@@ -1,12 +1,12 @@
-﻿using DirectoryCleanup.Core.Models;
-using DirectoryCleanup.Core.Result;
-using DirectoryCleanup.Logger;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using VsCleanup.Core.Models;
+using VsCleanup.Core.Result;
+using VsCleanup.Logger;
 
-namespace DirectoryCleanup.Core
+namespace VsCleanup.Core
 {
     public class FileSystemItemsProvider : IFileSystemItemsProvider
     {

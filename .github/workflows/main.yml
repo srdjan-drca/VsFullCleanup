@@ -22,14 +22,14 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.5
       
     - name: Restore NuGet packages
-      run: nuget restore DirectoryCleanup.sln
+      run: nuget restore VsCleanup.sln
       
     - name: Build Solution
-      run: msbuild DirectoryCleanup.sln /p:Configuration=Release
+      run: msbuild VsCleanup.sln /p:Configuration=Release
 
     - name: Archive production artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: dist-without-markdown
-        path: DirectoryCleanup/bin/x86/Release/DirectoryCleanup.exe
+        name: VsCleanup-x86
+        path: VsCleanup/bin/x86/Release/VsCleanup.exe
         retention-days: 5

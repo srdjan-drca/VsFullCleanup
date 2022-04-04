@@ -1,20 +1,20 @@
-﻿using DirectoryCleanup.Core;
-using DirectoryCleanup.Core.Models;
-using DirectoryCleanup.Core.Result;
-using DirectoryCleanup.Extensions;
-using DirectoryCleanup.Helpers;
-using DirectoryCleanup.InputParser;
-using DirectoryCleanup.Logger;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using VsCleanup.Core;
+using VsCleanup.Core.Models;
+using VsCleanup.Core.Result;
+using VsCleanup.Extensions;
+using VsCleanup.Helpers;
+using VsCleanup.InputParser;
+using VsCleanup.Logger;
 
-namespace DirectoryCleanup
+namespace VsCleanup
 {
     internal static class Program
     {
         private static void Main(string[] args)
         {
-            var logger = new SimpleLogger(@"DirectoryCleanupLog.txt");
+            var logger = new SimpleLogger(@"VsCleanupLog.txt");
             var itemsProvider = new FileSystemItemsProvider(logger);
             var inputParameters = new InputParameters();
 

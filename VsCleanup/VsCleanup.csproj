@@ -7,8 +7,8 @@
     <ProjectGuid>{E431A4E5-ACF0-465E-8FF5-A79E9DBCB1C3}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DirectoryCleanup</RootNamespace>
-    <AssemblyName>DirectoryCleanup</AssemblyName>
+    <RootNamespace>VsCleanup</RootNamespace>
+    <AssemblyName>VsCleanup</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

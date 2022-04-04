@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DirectoryCleanup.Core.Models
+namespace VsCleanup.Core.Models
 {
     public class DirectoryItem : FileSystemItem
     {

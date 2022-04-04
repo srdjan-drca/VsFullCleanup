@@ -1,9 +1,9 @@
-﻿using DirectoryCleanup.Core.Result;
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
+using VsCleanup.Core.Result;
 
-namespace DirectoryCleanup.InputParser
+namespace VsCleanup.InputParser
 {
     public class InputParameters
     {
@@ -24,7 +24,7 @@ namespace DirectoryCleanup.InputParser
             RootPath = GetRootPath(pathOptIndex, parameterList);
             IsDeletingPackages = packagesOptIndex >= 0;
 
-            if(string.IsNullOrEmpty(RootPath))
+            if (string.IsNullOrEmpty(RootPath))
             {
                 return new FailResult(CreateHelpMessage("Missing path value"));
             }

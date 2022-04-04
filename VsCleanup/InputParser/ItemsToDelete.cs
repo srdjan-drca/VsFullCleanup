@@ -1,8 +1,8 @@
-﻿using DirectoryCleanup.Core.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using VsCleanup.Core.Models;
 
-namespace DirectoryCleanup.InputParser
+namespace VsCleanup.InputParser
 {
     public class ItemsToDelete
     {

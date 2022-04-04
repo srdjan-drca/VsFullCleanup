@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DirectoryCleanup.Extensions
+namespace VsCleanup.Extensions
 {
     public static class EnumerableExtensions
     {

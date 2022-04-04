@@ -1,4 +1,4 @@
-﻿namespace DirectoryCleanup.Core.Models
+﻿namespace VsCleanup.Core.Models
 {
     public class FileSystemItem
     {
