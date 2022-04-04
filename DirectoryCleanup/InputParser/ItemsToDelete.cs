@@ -19,7 +19,7 @@ namespace DirectoryCleanup.InputParser
             VsDirectoryItemList = fileSystemItems.Where(x => x.Path.Contains(@"\.vs")).ToList();
             VsUserFileList = fileSystemItems.Where(x => x.Path.Contains(@".user")).ToList();
             PackageDirectoryItemList = inputParameters.IsDeletingPackages
-                ? fileSystemItems.Where(x => x.Path.Contains(@"\packages\")).ToList()
+                ? fileSystemItems.Where(x => x.Path.Contains(@"\packages\") && !x.Path.Contains(@"node_modules")).ToList()
                 : new List<FileSystemItem>();
         }
     }

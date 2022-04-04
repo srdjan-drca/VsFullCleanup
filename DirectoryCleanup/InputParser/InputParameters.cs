@@ -16,13 +16,13 @@ namespace DirectoryCleanup.InputParser
             int pathOptIndex = Array.IndexOf(parameterList, "-path");
             int packagesOptIndex = Array.IndexOf(parameterList, "-packages");
 
-            if (helpOptIndex > 0)
+            if (helpOptIndex >= 0)
             {
                 return new FailResult(CreateHelpMessage(string.Empty));
             }
 
             RootPath = GetRootPath(pathOptIndex, parameterList);
-            IsDeletingPackages = packagesOptIndex > 0;
+            IsDeletingPackages = packagesOptIndex >= 0;
 
             if(string.IsNullOrEmpty(RootPath))
             {
@@ -43,7 +43,7 @@ namespace DirectoryCleanup.InputParser
 
         private string GetRootPath(int pathOptIndex, string[] parameterList)
         {
-            if (pathOptIndex > 0)
+            if (pathOptIndex >= 0)
             {
                 if (pathOptIndex + 1 <= parameterList.Length)
                 {
